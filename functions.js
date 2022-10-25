@@ -1,7 +1,11 @@
+// * Generic Functions
 const getDecimalFromPercentage = (percentage) => {
   return 1 + percentage / 100;
 };
 
+// * End of Generic Functions
+
+// * Yield Calculation Functions
 const getYieldForPlant = (plant, environmentFactors) => {
   let sunFactor = 1;
   let windFactor = 1;
@@ -37,6 +41,10 @@ const getTotalYield = (input, environmentFactors) => {
   return totalYield;
 };
 
+// * End of Yield Calculation Functions
+
+// * Revenue / Profit Calculation Functions
+
 const getRevenueForPlant = (plant, environmentalFactors) => {
   return getYieldForPlant(plant, environmentalFactors) * plant.price;
 };
@@ -59,6 +67,16 @@ const getProfitForCrop = (input, environmentFactors) => {
   return revenue - getCostsForCrop(input);
 };
 
+const getTotalProfit = (input, environmentFactors) => {
+  let totalProfit = 0;
+
+  input.crops.forEach((crop) => {
+    totalProfit += getProfitForCrop(crop, environmentFactors);
+  });
+
+  return totalProfit;
+};
+
 module.exports = {
   getYieldForPlant,
   getYieldForCrop,
@@ -66,4 +84,5 @@ module.exports = {
   getRevenueForPlant,
   getRevenueForCrop,
   getProfitForCrop,
+  getTotalProfit,
 };
