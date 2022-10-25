@@ -2,6 +2,8 @@ const {
   getYieldForPlant,
   getYieldForCrop,
   getTotalYield,
+  getRevenueForPlant,
+  getRevenueForCrop,
 } = require("./functions.js");
 
 const environmentFactors = {
@@ -121,4 +123,47 @@ test("Calculate total yield with multiple crops and environmental factors", () =
   ];
 
   expect(getTotalYield({ crops }, environmentFactors)).toBe(11.5);
+});
+
+describe("getRevenueForPlant", () => {
+  test("Get revenue for plant with environmental factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 3,
+      price: 2,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+      },
+    };
+
+    expect(getRevenueForPlant(corn, environmentFactors)).toBe(3);
+  });
+});
+
+describe("getRevenueForCrop", () => {
+  test("Get revenue for crop with environmental factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 3,
+      price: 2,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+      },
+    };
+
+    const input = {
+      crop: corn,
+      numCrops: 10,
+    };
+
+    expect(getRevenueForCrop(input, environmentFactors)).toBe(30);
+  });
 });
